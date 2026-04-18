@@ -66,7 +66,14 @@ def get_images_from_html(html, base_url):
     
     return image_urls 
     
-    
+def extract_page_data(html, page_url): 
+    dictionary = {}    
+    dictionary["url"] = page_url  
+    dictionary["heading"] = get_heading_from_html(html)
+    dictionary["first_paragraph"] = get_first_paragraph_from_html(html)
+    dictionary["outgoing_links"] = get_urls_from_html(html, page_url)
+    dictionary["image_urls"] = get_images_from_html(html, page_url)
+    return dictionary  
     
 
        
