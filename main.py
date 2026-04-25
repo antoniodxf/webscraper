@@ -1,5 +1,5 @@
 import sys
-from crawl import get_html 
+from crawl import crawl_page
 
 
 def main():
@@ -11,8 +11,12 @@ def main():
         sys.exit(1)
     base_url = sys.argv[1]
     print(f"starting crawl of: {base_url}")
-    html = get_html(base_url)
-    print(html)
+    crawled_pages = crawl_page(base_url)
+    print(f"Number of pages found: {len(crawled_pages)}")
+    for page in crawled_pages.values():
+        print(page)
+    
+
 
     
 

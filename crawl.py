@@ -86,7 +86,28 @@ def get_html(url):
         raise Exception(f"Invalid content type: {content_type}")
     return response.text 
     
-def crawl_page(base_url, current_url=None, page_data=None)
+def crawl_page(base_url, current_url=None, page_data=None):
+    if current_url is None:
+        current_url = base_url
+    if page_data is None:
+        page_data = {}
+    parsed_base = urlparse(base_url)
+    parsed_current = urlparse(current_url)
+    if parsed_base.netloc != parsed_current.netloc:
+        return
+    normalized_url = normalize_url(current_url)
+    if normalized_url in page_data:
+        return
+    html = get_html(current_url)
+
+    page_data[normalized_url] = extract_page_data(html, current_url)
+    urls = get_urls_from_html(html, current_url)
+    for url in urls:
+        crawl_page(base_url, url, page_data)
+    return page_data
+        
+
+
     
 
        
